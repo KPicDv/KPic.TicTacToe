@@ -3,6 +3,8 @@ let nomJoueurRouge = null
 let numeroTour = 1
 let gagnant = null
 let cases = [null, null, null, null, null, null, null, null, null]
+let scoreJoueurBleu = 0
+let scoreJoueurRouge = 0
 
 /**
  * CASES
@@ -24,10 +26,16 @@ const $tableau = document.getElementById('tableau')
 const $resultat = document.getElementById('resultat')
 const $casesTableau = document.querySelectorAll('#tableau td')
 const $page = document.querySelector('body')
+const $nomScoreJoueurBleuJoueur = document.getElementById('nom-score-joueur-bleu')
+const $valeurScoreJoueurBleuJoueur = document.getElementById('valeur-score-joueur-bleu')
+const $nomScoreJoueurRougeJoueur = document.getElementById('nom-score-joueur-rouge')
+const $valeurScoreJoueurRougeJoueur = document.getElementById('valeur-score-joueur-rouge')
 
 $boutonRecommencer.hidden = true
 $zoneJeu.hidden = true
 $resultat.hidden = true
+$valeurScoreJoueurBleuJoueur.hidden = true
+$valeurScoreJoueurRougeJoueur.hidden = true
 
 // Lorsqu'on clique sur le bouton JOUER.
 $boutonJouer.onclick = () => {
@@ -40,6 +48,10 @@ $boutonJouer.onclick = () => {
         nomJoueurBleu = null
         nomJoueurBleu = null
     } else {
+        $nomScoreJoueurBleuJoueur.innerHTML = nomJoueurBleu
+        $nomScoreJoueurRougeJoueur.innerHTML = nomJoueurRouge
+        $valeurScoreJoueurBleuJoueur.hidden = false
+        $valeurScoreJoueurRougeJoueur.hidden = false
         $zoneSelectionJoueurs.hidden = true
         $zoneJeu.hidden = false
         $nomJoueur.innerHTML = nomJoueurBleu
@@ -77,9 +89,13 @@ const selectionnerCase = (index) => {
             if (gagnant == 1) {
                 nomGagnant = nomJoueurBleu
                 couleurGagnant = 'bleu'
+                scoreJoueurBleu++
+                $valeurScoreJoueurBleuJoueur.innerHTML = scoreJoueurBleu
             } else {
                 nomGagnant = nomJoueurRouge
                 couleurGagnant = 'rouge'
+                scoreJoueurRouge++
+                $valeurScoreJoueurRougeJoueur.innerHTML = scoreJoueurRouge
             }
             $resultat.innerHTML = 'Victoire de <span class="' + couleurGagnant + '">' + nomGagnant + '</span> !'
             $tourJoueur.hidden = true

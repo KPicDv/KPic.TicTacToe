@@ -138,3 +138,34 @@ table td:empty {
     padding: 1px 8px;
     border-radius: 3px;
 }
+
+#score-joueur-bleu,
+#score-joueur-rouge {
+    background: #212121;
+    position: fixed;
+    top: 10px;
+    padding: 10px;
+    width: 150px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+#score-joueur-bleu {
+    left: 10px;
+}
+
+#score-joueur-rouge {
+    right: 10px;
+}
+
+#nom-score-joueur-bleu,
+#nom-score-joueur-rouge {
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+#valeur-score-joueur-bleu,
+#valeur-score-joueur-rouge {
+    font-size: 48px;
+}
