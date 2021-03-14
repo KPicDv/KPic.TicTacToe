@@ -1,6 +1,8 @@
 let nomJoueurBleu = null
 let nomJoueurRouge = null
+let auJoueurBleu = true
 let numeroTour = 1
+let numeroManche = 1
 let gagnant = null
 let cases = [null, null, null, null, null, null, null, null, null]
 let scoreJoueurBleu = 0
@@ -16,8 +18,8 @@ let scoreJoueurRouge = 0
 // Récupération des zones HTML.
 const $boutonJouer = document.getElementById('jouer')
 const $boutonRecommencer = document.getElementById('recommencer')
-const $nomJoueurBleu = document.getElementById('nom-joueur-bleu')
-const $nomJoueurRouge = document.getElementById('nom-joueur-rouge')
+const $inputNomJoueurBleu = document.getElementById('nom-joueur-bleu')
+const $inputNomJoueurRouge = document.getElementById('nom-joueur-rouge')
 const $zoneSelectionJoueurs = document.getElementById('selection-joueurs')
 const $zoneJeu = document.getElementById('jeu')
 const $nomJoueur = document.getElementById('nom-joueur')
@@ -39,8 +41,8 @@ $valeurScoreJoueurRougeJoueur.hidden = true
 
 // Lorsqu'on clique sur le bouton JOUER.
 $boutonJouer.onclick = () => {
-    nomJoueurBleu = $nomJoueurBleu.value
-    nomJoueurRouge = $nomJoueurRouge.value
+    nomJoueurBleu = $inputNomJoueurBleu.value
+    nomJoueurRouge = $inputNomJoueurRouge.value
 
     if (nomJoueurBleu.length < 3 || nomJoueurBleu.length < 3) {
         alert('Les noms sont invalides')
@@ -57,6 +59,8 @@ $boutonJouer.onclick = () => {
         $nomJoueur.innerHTML = nomJoueurBleu
         $nomJoueur.className = 'bleu'
         $page.className = 'bleu'
+
+        initialiserRaccourcisClavier()
     }
 }
 
@@ -72,7 +76,7 @@ const selectionnerCase = (index) => {
     if (cases[index] == null && gagnant == null) {
         const $caseTableau = $casesTableau[index]
         let nomImage
-        if (numeroTour % 2 == 1) {
+        if (auJoueurBleu) {
             nomImage = 'rond'
             cases[index] = 1
         } else {
@@ -113,8 +117,9 @@ const selectionnerCase = (index) => {
 
 const tourSuivant = () => {
     numeroTour++
+    auJoueurBleu = !auJoueurBleu
 
-    if (numeroTour % 2 == 1) {
+    if (auJoueurBleu) {
         $nomJoueur.innerHTML = nomJoueurBleu
         $nomJoueur.className = 'bleu-fonce'
         $page.className = 'bleu'
@@ -175,8 +180,18 @@ $boutonRecommencer.onclick = () => {
     numeroTour = 1
     gagnant = null
     cases = [null, null, null, null, null, null, null, null, null]
+    numeroManche++
+    if (numeroManche % 2 == 1) {
+        $page.className = 'bleu'
+        auJoueurBleu = true
+        $nomJoueur.innerHTML = nomJoueurBleu
+    } else {
+        $page.className = 'rouge'
+        auJoueurBleu = false
+        $nomJoueur.innerHTML = nomJoueurRouge
+    }
+    $nomJoueur.className = $page.className
     $resultat.innerHTML = ''
-    $page.className = 'bleu'
     $tourJoueur.hidden = false
     $resultat.hidden = true
     $boutonRecommencer.hidden = true
@@ -186,21 +201,23 @@ $boutonRecommencer.onclick = () => {
     })
 }
 
-window.onkeydown = (e) => {
-    if ([1, 2, 3, 4, 5, 6, 7, 8, 9].includes(parseInt(e.key))) {
-        const valeurs = {
-            1: 6,
-            2: 7,
-            3: 8,
-            4: 3,
-            5: 4,
-            6: 5,
-            7: 0,
-            8: 1,
-            9: 2
+const initialiserRaccourcisClavier = () => {
+    window.onkeydown = (e) => {
+        if ([1, 2, 3, 4, 5, 6, 7, 8, 9].includes(parseInt(e.key))) {
+            const valeurs = {
+                1: 6,
+                2: 7,
+                3: 8,
+                4: 3,
+                5: 4,
+                6: 5,
+                7: 0,
+                8: 1,
+                9: 2
+            }
+            const index = valeurs[e.key]
+            
+            selectionnerCase(index)
         }
-        const index = valeurs[e.key]
-        
-        selectionnerCase(index)
     }
 }
