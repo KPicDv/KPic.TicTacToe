@@ -127,6 +127,11 @@ table td:empty {
     cursor: pointer;
 }
 
+#tour-joueur,
+#resultat {
+    line-height: 32px;
+}
+
 #nom-joueur,
 #resultat span {
     display: inline-block;

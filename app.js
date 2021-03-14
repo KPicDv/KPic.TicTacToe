@@ -19,7 +19,7 @@ const $nomJoueurRouge = document.getElementById('nom-joueur-rouge')
 const $zoneSelectionJoueurs = document.getElementById('selection-joueurs')
 const $zoneJeu = document.getElementById('jeu')
 const $nomJoueur = document.getElementById('nom-joueur')
-const $tourJoueur = document.getElementById('tour-Joueur')
+const $tourJoueur = document.getElementById('tour-joueur')
 const $tableau = document.getElementById('tableau')
 const $resultat = document.getElementById('resultat')
 const $casesTableau = document.querySelectorAll('#tableau td')
@@ -28,6 +28,72 @@ const $page = document.querySelector('body')
 $boutonRecommencer.hidden = true
 $zoneJeu.hidden = true
 $resultat.hidden = true
+
+// Lorsqu'on clique sur le bouton JOUER.
+$boutonJouer.onclick = () => {
+    nomJoueurBleu = $nomJoueurBleu.value
+    nomJoueurRouge = $nomJoueurRouge.value
+
+    if (nomJoueurBleu.length < 3 || nomJoueurBleu.length < 3) {
+        alert('Les noms sont invalides')
+
+        nomJoueurBleu = null
+        nomJoueurBleu = null
+    } else {
+        $zoneSelectionJoueurs.hidden = true
+        $zoneJeu.hidden = false
+        $nomJoueur.innerHTML = nomJoueurBleu
+        $nomJoueur.className = 'bleu'
+        $page.className = 'bleu'
+    }
+}
+
+// Parcours toutes les cellules du tableau pour ajouter les évènements
+$casesTableau.forEach(($caseTableau, index) => {
+    // Lorsqu'on clique sur la cellule du tableau.
+    $caseTableau.onclick = () => {
+        selectionnerCase(index)
+    }
+})
+
+const selectionnerCase = (index) => {
+    if (cases[index] == null && gagnant == null) {
+        const $caseTableau = $casesTableau[index]
+        let nomImage
+        if (numeroTour % 2 == 1) {
+            nomImage = 'rond'
+            cases[index] = 1
+        } else {
+            nomImage = 'croix'
+            cases[index] = 2
+        }
+        $caseTableau.innerHTML = '<img src="images/' + nomImage + '.png">'
+
+        gagnant = verifierVictoire()
+
+        if (gagnant) {
+            let nomGagnant
+            let couleurGagnant
+            if (gagnant == 1) {
+                nomGagnant = nomJoueurBleu
+                couleurGagnant = 'bleu'
+            } else {
+                nomGagnant = nomJoueurRouge
+                couleurGagnant = 'rouge'
+            }
+            $resultat.innerHTML = 'Victoire de <span class="' + couleurGagnant + '">' + nomGagnant + '</span> !'
+            $tourJoueur.hidden = true
+            $resultat.hidden = false
+            $boutonRecommencer.hidden = false
+        } else {
+            if (numeroTour == 9) {
+                partieTerminee()
+            } else {
+                tourSuivant()
+            }
+        }
+    }
+}
 
 const tourSuivant = () => {
     numeroTour++
@@ -88,25 +154,6 @@ const verifierCases = (a, b, c) => {
     return null
 }
 
-// Lorsqu'on clique sur le bouton JOUER.
-$boutonJouer.onclick = () => {
-    nomJoueurBleu = $nomJoueurBleu.value
-    nomJoueurRouge = $nomJoueurRouge.value
-
-    if (nomJoueurBleu.length < 3 || nomJoueurBleu.length < 3) {
-        alert('Les noms sont invalides')
-
-        nomJoueurBleu = null
-        nomJoueurBleu = null
-    } else {
-        $zoneSelectionJoueurs.hidden = true
-        $zoneJeu.hidden = false
-        $nomJoueur.innerHTML = nomJoueurBleu
-        $nomJoueur.className = 'bleu'
-        $page.className = 'bleu'
-    }
-}
-
 // Lorsqu'on clique sur le bouton RECOMMENCER.
 $boutonRecommencer.onclick = () => {
     numeroTour = 1
@@ -123,44 +170,21 @@ $boutonRecommencer.onclick = () => {
     })
 }
 
-// Parcours toutes les cellules du tableau pour ajouter les évènements
-$casesTableau.forEach(($caseTableau, index) => {
-    // Lorsqu'on clique sur la cellule du tableau.
-    $caseTableau.onclick = () => {
-        if (cases[index] == null && gagnant == null) {
-            let nomImage
-            if (numeroTour % 2 == 1) {
-                nomImage = 'rond'
-                cases[index] = 1
-            } else {
-                nomImage = 'croix'
-                cases[index] = 2
-            }
-            $caseTableau.innerHTML = '<img src="images/' + nomImage + '.png">'
-
-            gagnant = verifierVictoire()
-
-            if (gagnant) {
-                let nomGagnant
-                let couleurGagnant
-                if (gagnant == 1) {
-                    nomGagnant = nomJoueurBleu
-                    couleurGagnant = 'bleu'
-                } else {
-                    nomGagnant = nomJoueurRouge
-                    couleurGagnant = 'rouge'
-                }
-                $resultat.innerHTML = 'Victoire de <span class="' + couleurGagnant + '">' + nomGagnant + '</span> !'
-                $tourJoueur.hidden = true
-                $resultat.hidden = false
-                $boutonRecommencer.hidden = false
-            } else {
-                if (numeroTour == 9) {
-                    partieTerminee()
-                } else {
-                    tourSuivant()
-                }
-            }
+window.onkeydown = (e) => {
+    if ([1, 2, 3, 4, 5, 6, 7, 8, 9].includes(parseInt(e.key))) {
+        const valeurs = {
+            1: 6,
+            2: 7,
+            3: 8,
+            4: 3,
+            5: 4,
+            6: 5,
+            7: 0,
+            8: 1,
+            9: 2
         }
+        const index = valeurs[e.key]
+        
+        selectionnerCase(index)
     }
-})
+}
