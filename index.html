@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <div id="page">
+        <div id="contenu">
+            <h1>Tic Tac Toe</h1>
+
+            <div id="selection-joueurs">
+                <h2>Sélection des joueurs</h2>
+                
+                <div class="selection-joueur bleu bordure-bleu-fonce">
+                    <p class="mujuscule">Nom du joueur bleu</p>
+                    <input type="text" id="nom-joueur-bleu" class="bleu" autofocus>
+                </div>
+
+                <div class="selection-joueur rouge bordure-rouge-fonce">
+                    <p class="mujuscule">Nom du joueur rouge</p>
+                    <input type="text" id="nom-joueur-rouge" class="rouge">
+                </div>
+
+                <div class="centre">
+                    <button id="jouer">Jouer</button>
+                </div>
+            </div>
+
+            <div id="jeu">
+                <h2 id="tour-Joueur">A <span id="nom-joueur"></span> de jouer !</h2>
+                <h2 id="resultat"></h2>
+
+                <table id="tableau">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                
+                <div class="centre">
+                    <button id="recommencer">Recommencer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

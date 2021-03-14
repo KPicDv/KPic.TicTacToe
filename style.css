@@ -1,0 +1,135 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background-color: #212121;
+    margin: 0;
+    color: #FFF;
+    font-family: 'Roboto';
+}
+
+h1,
+h2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.bleu {
+    background: #1976D2;
+}
+
+#page {
+    display: flex;
+    height: 100%;
+}
+
+#contenu {
+    background-color: #212121;
+    width: 514px;
+    margin: auto;
+    padding-bottom: 20px;
+    border-radius: 4px;
+}
+
+input {
+    background: transparent;
+    width: 250px;
+    border: none;
+    border-bottom: 2px solid #FFF;
+    padding: 12px;
+    text-align: center;
+    color: #FFF;
+    outline: none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+input.bleu:focus {
+    background: #1565C0;
+}
+
+input.rouge:focus {
+    background: #C62828;
+}
+
+.selection-joueur {
+    padding: 10px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    text-align: center;
+    border: solid 4px;
+    margin-top: 20px;
+}
+
+.centre {
+    text-align: center;
+}
+
+#jouer,
+#recommencer {
+    background: #FFF;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    border: none;
+    font-size: 22px;
+}
+
+#jouer {
+    margin-top: 20px;
+}
+
+.bleu {
+    background: #1976D2;
+}
+
+.bleu-fonce {
+    background: #1565C0;
+}
+
+.rouge {
+    background: #D32F2F;
+}
+
+.rouge-fonce {
+    background: #C62828;
+}
+
+.bordure-bleu-fonce {
+    border-color: #1565C0;
+}
+
+.bordure-rouge-fonce {
+    border-color: #C62828;
+}
+
+button {
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+table td {
+    width: 140px;
+    height: 140px;
+    border: 2px solid #FFF;
+    cursor: no-drop;
+    text-align: center;
+}
+
+table td:empty {
+    cursor: pointer;
+}
+
+#nom-joueur,
+#resultat span {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 3px;
+}
